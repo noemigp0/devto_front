@@ -15,8 +15,7 @@ fetch(API_URL_UPD)
     let templateCI = "";
 
     if (response) {
-      let { title, author, content, tags, urlCoverImage, avatarAuthor } =
-        newResponse;
+      let { title, author, content, tags, urlCoverImage, avatar } = newResponse;
 
       document.getElementById("authorPost").innerHTML = author;
       document.getElementById("titlePost").innerHTML = title;
@@ -24,7 +23,7 @@ fetch(API_URL_UPD)
 
       templateCI = `<img src="${urlCoverImage}" alt="No picture found" />`;
       document.getElementById("cover-image").innerHTML = templateCI;
-      templateCI = `<img src="${avatarAuthor}" alt="No picture found" />`;
+      templateCI = `<img src="${avatar}" alt="No picture found" />`;
       document.getElementById("avatar-image").innerHTML = templateCI;
       document.getElementById("avatar-image-sb").innerHTML = templateCI;
       document.getElementById("authorPostSB").innerHTML = author;

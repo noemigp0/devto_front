@@ -35,8 +35,7 @@ btnEnviar.addEventListener("click", () => {
       reactions: parseInt(Math.random() * 1000),
       comments: parseInt(Math.random() * 1000),
       category: categoria,
-      avatarAuthor: imagenAvatar,
-      
+      avatar: imagenAvatar,
     };
     // console.log(newPost);
     fetch(`${API_URL}/post/crear/`, {
