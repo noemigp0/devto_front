@@ -24,11 +24,16 @@ const alertMessage = (message, type) => {
 const paintTags = (tagsArray) => {
   // console.log(tagsArray);
   let tagsTemplate = '';
+  console.log(typeof(tagsArray))
+  if (typeof(tagsArray) != "string"){
+  
   tagsArray.forEach(element => {
     tagsTemplate += `
        <a class="LinksHashtags FGray" href="#"> #${element}</a>
       `;
   });
+}
+  
 
   return tagsTemplate
 
