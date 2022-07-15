@@ -1,32 +1,36 @@
 
-fetch(API_URL_UPD)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(
-        `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
-      );
-    } else {
-      return response.json();
-    }
-  })
-  .then((response) => {
-    if (response) {
-      let { title, author, content, tags, urlCoverImage, avatarAuthor } =
-        response;
+const readPostbyId = () =>{
 
-      document.getElementById("usuario").value = author;
-      document.getElementById("cover-image").value = urlCoverImage;
-      document.getElementById("titulo").value = title;
-      document.getElementById("etiqueta").value = tags;
-      document.getElementById("contenido").value = content;
-      document.getElementById("imagen-avatar").value = avatarAuthor;
-    } else {
-      alertMessage("Usuario no existente");
-    }
+  console.log("readPostbyId", API_URL_UPD )
+
+  fetch( API_URL_UPD, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
   })
-  .catch((err) => {});
+  .then((response) => {
+      
+      if (response) {
+        let { title, author, content, tags, urlCoverImage, avatarAuthor } =
+          response;
+
+        document.getElementById("usuario").value = author;
+        document.getElementById("cover-image").value = urlCoverImage;
+        document.getElementById("titulo").value = title;
+        document.getElementById("etiqueta").value = tags;
+        document.getElementById("contenido").value = content;
+        document.getElementById("imagen-avatar").value = avatarAuthor;
+      } else {
+        alertMessage("Usuario no existente");
+      }
+    })
+    .catch((err) => {});
+
+}
 
 let btnActualizar = document.getElementById("updatePost");
+
 btnActualizar.addEventListener("click", () => {
  
   let author = document.getElementById("usuario").value
@@ -83,6 +87,7 @@ btnActualizar.addEventListener("click", () => {
       .catch((err) => {});
   }
 });
+
 /**
  * Eliminar koder
  */
@@ -106,3 +111,5 @@ btnEliminar.addEventListener("click", () => {
     })
     .catch((err) => {});
 });
+
+readPostbyId()
