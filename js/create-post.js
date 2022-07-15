@@ -30,15 +30,16 @@ btnEnviar.addEventListener("click", () => {
       tags: etiqueta,
       urlCoverImage: imagen,
       author: usuario,
-      createdDate: "17/06/2022",
+      createdDate: "2022-07-14",
       mintoread: parseInt(Math.random() * 1000),
       reactions: parseInt(Math.random() * 1000),
       comments: parseInt(Math.random() * 1000),
       category: categoria,
       avatarAuthor: imagenAvatar,
+      
     };
     // console.log(newPost);
-    fetch("https://koder19g-ngp-default-rtdb.firebaseio.com/posts/.json", {
+    fetch(`${API_URL}/post/crear/`, {
       method: "POST",
       body: JSON.stringify(newPost),
       headers: {
