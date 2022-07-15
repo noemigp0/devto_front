@@ -106,22 +106,22 @@ const createPosts = (postArray) => {
 
 const listPosts = (objPost, strType ) => {
 
- 
+ let {success, data } = objPost
   let postCardTemplate = "";
   let i = 0;
   let arrList = []
   let flagFirstTime = 0;
 
 
-  arrList = Object.entries( objPost )
-  
+  arrList = Object.entries( data.post )
+  console.log(arrList)
   arrReverse = arrList.reverse() 
 
   
   for ( i = 0; i < arrList.length; i++ ){
     let postElements = arrList[i][1] 
 
-    let tags = postElements.tags.split(",")
+    let tags = !postElements.tags ?  '': postElements.tags.split(",")
     // console.log(paintTags(tags))
     
     let postCardTemplateImage = ""
@@ -185,8 +185,9 @@ const listPosts = (objPost, strType ) => {
 //
 
 const loadData = ( strType ) => {
-  fetch("https://koder19g-ngp-default-rtdb.firebaseio.com/posts/.json")
+  fetch(`${API_URL}/post`)
     .then((response) => {
+      console.log(response)
       if (!response.ok) {
         throw new Error(
           `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}` 
@@ -196,7 +197,7 @@ const loadData = ( strType ) => {
       }
     })
     .then((response) => {
-      
+      console.log(response)
       listPosts(response, strType );
     });
   }
