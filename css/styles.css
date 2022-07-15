@@ -50,7 +50,8 @@ body{
     border-radius: 8px;
     font-size: 18px;
     color: #3b49df;
-    margin-right: 150px;
+    /* //margin-right: 150px; */
+    /* padding-right: 500px; */
 }
 
 @media (min-width: 570px){
@@ -59,7 +60,7 @@ body{
         border-radius: 8px;
         font-size: 18px;
         color: #3b49df;
-        margin-right: 0px;
+        margin-right: 138px;
     }
 }
 

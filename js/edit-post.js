@@ -11,15 +11,14 @@ fetch(API_URL_UPD)
   })
   .then((response) => {
     if (response) {
-      let { title, author, content, tags, urlCoverImage, avatarAuthor } =
-        response;
+      let { title, author, content, tags, urlCoverImage, avatar } = response;
 
       document.getElementById("usuario").value = author;
       document.getElementById("cover-image").value = urlCoverImage;
       document.getElementById("titulo").value = title;
       document.getElementById("etiqueta").value = tags;
       document.getElementById("contenido").value = content;
-      document.getElementById("imagen-avatar").value = avatarAuthor;
+      document.getElementById("imagen-avatar").value = avatar;
     } else {
       alertMessage("Usuario no existente");
     }
@@ -61,7 +60,7 @@ btnActualizar.addEventListener("click", () => {
       reactions: parseInt(Math.random() * 1000),
       comments: parseInt(Math.random() * 1000),
       category: category === "seleccione" ? "latest" : category,
-      avatarAuthor: avatarImage,
+      avatar: avatarImage,
     };
  
     fetch(API_URL_UPD, {

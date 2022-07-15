@@ -32,9 +32,9 @@ const listPosts = (objPost, strType) => {
 
         <div class="CardHead">
           <div><img class="ImgTmb" src="${
-            postElements.avatarAuthor === "url"
+            postElements.avatar === "url"
               ? "https://i.pravatar.cc/150?img=" + parseInt(Math.random() * 10)
-              : postElements.avatarAuthor
+              : postElements.avatar
           }" /></div>
             <div class="CardTitleHead">
               <div class="Name">${postElements.author}</div>
