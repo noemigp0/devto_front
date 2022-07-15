@@ -1,7 +1,7 @@
 let idPost = window.location.search.substring(9);
 
 
-let url = "https://koder19g-ngp-default-rtdb.firebaseio.com/posts/.json"
+let API_URL = "http://localhost:8080"
 let urlUpd = `https://koder19g-ngp-default-rtdb.firebaseio.com/posts/${idPost}.json`
 
 //Esta funsion es para los alerts, el cdigo es de bootstrap
