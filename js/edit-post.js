@@ -96,7 +96,7 @@ btnActualizar.addEventListener("click", () => {
  */
 let btnEliminar = document.getElementById("deletePost");
 btnEliminar.addEventListener("click", () => {
-  fetch(urlUpd,
+  fetch(`${API_URL}${urlUpd}`,
     {
       method: "DELETE",
     }
