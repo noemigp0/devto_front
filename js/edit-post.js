@@ -1,20 +1,18 @@
 
-fetch(urlUpd)
+fetch(API_URL_UPD)
   .then((response) => {
-
     if (!response.ok) {
-
       throw new Error(
         `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
       );
-    } else {   
+    } else {
       return response.json();
     }
   })
-  .then((response) => {   
+  .then((response) => {
     if (response) {
-      let { title, author, content, tags, urlCoverImage, avatarAuthor } = response;
-      
+      let { title, author, content, tags, urlCoverImage, avatarAuthor } =
+        response;
 
       document.getElementById("usuario").value = author;
       document.getElementById("cover-image").value = urlCoverImage;
@@ -22,14 +20,11 @@ fetch(urlUpd)
       document.getElementById("etiqueta").value = tags;
       document.getElementById("contenido").value = content;
       document.getElementById("imagen-avatar").value = avatarAuthor;
-  
     } else {
       alertMessage("Usuario no existente");
     }
   })
-  .catch((err) => {
-   
-  });
+  .catch((err) => {});
 
 let btnActualizar = document.getElementById("updatePost");
 btnActualizar.addEventListener("click", () => {
@@ -69,7 +64,7 @@ btnActualizar.addEventListener("click", () => {
       avatarAuthor: avatarImage,
     };
  
-    fetch(urlUpd, {
+    fetch(API_URL_UPD, {
       method: "PATCH",
       body: JSON.stringify(postUpdated),
       headers: {
@@ -80,15 +75,12 @@ btnActualizar.addEventListener("click", () => {
         return response.json();
       })
       .then((finalResponse) => {
-
-        alertMessage(`Se actualizo exitosamente el post`, "warning")
+        alertMessage(`Se actualizo exitosamente el post`, "warning");
         setTimeout(() => {
-          window.location.pathname = '/index.html'
+          window.location.pathname = "/index.html";
         }, 2000);
       })
-      .catch((err) => {
-    
-      });
+      .catch((err) => {});
   }
 });
 /**
@@ -96,26 +88,21 @@ btnActualizar.addEventListener("click", () => {
  */
 let btnEliminar = document.getElementById("deletePost");
 btnEliminar.addEventListener("click", () => {
-  fetch(urlUpd,
-    {
-      method: "DELETE",
-    }
-  )
+  fetch(API_URL_UPD, {
+    method: "DELETE",
+  })
     .then((response) => {
-      if (!response.ok) {    
+      if (!response.ok) {
         let err = new Error(
           `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
         );
         throw err;
-      } else { 
+      } else {
         return response.json();
       }
     })
     .then((response) => {
-
       window.location.pathname = "/index.html";
     })
-    .catch((err) => {
- 
-    });
+    .catch((err) => {});
 });
