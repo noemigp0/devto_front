@@ -6,7 +6,9 @@ const listPosts = (objPost, strType) => {
   let flagFirstTime = 0;
 
   arrList = Object.entries(data.post);
+  
   console.log(arrList);
+
   arrReverse = arrList.reverse();
 
   for (i = 0; i < arrList.length; i++) {
@@ -111,5 +113,26 @@ let btn_top = document.getElementById("btn_top");
 btn_top.addEventListener("click", () => {
   loadData("Top");
 });
+
+
+const existeToken = () =>{
+
+  let flag = false
+
+  const devtoken = localStorage.getItem("devtoken")
+
+  console.log( "x", devtoken )
+
+  if( devtoken ){
+   flag = true
+  }
+
+  return flag
+}
+
+const loginIcon = document.getElementById("msglogin");
+
+existeToken() ? loginIcon.style.display = 'block': loginIcon.style.display = 'none'
+
 
 loadData("");
