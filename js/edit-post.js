@@ -1,37 +1,44 @@
 
-fetch(urlUpd)
-  .then((response) => {
+const readPostbyId = () =>{
 
+  console.log("readPostbyId", API_URL_UPD )
+
+  fetch( API_URL_UPD ).then((response) => {
+    console.log(response)
     if (!response.ok) {
-
       throw new Error(
         `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
       );
-    } else {   
+    }
+    else {
       return response.json();
     }
   })
-  .then((response) => {   
-    if (response) {
-      let { title, author, content, tags, urlCoverImage, avatarAuthor } = response;
-      
+  .then((response) => {
+    let { success, data } = response;
+    let newData = data.post 
+    console.log(newData)
+      //console.log( "readPostbyId 1", data.post )
+      if (response) {
+        let { title, author, content, tags, urlCoverImage, avatar } =
+        newData;
 
-      document.getElementById("usuario").value = author;
-      document.getElementById("cover-image").value = urlCoverImage;
-      document.getElementById("titulo").value = title;
-      document.getElementById("etiqueta").value = tags;
-      document.getElementById("contenido").value = content;
-      document.getElementById("imagen-avatar").value = avatarAuthor;
-  
-    } else {
-      alertMessage("Usuario no existente");
-    }
-  })
-  .catch((err) => {
-   
-  });
+        document.getElementById("usuario").value = author;
+        document.getElementById("cover-image").value = urlCoverImage;
+        document.getElementById("titulo").value = title;
+        document.getElementById("etiqueta").value = tags;
+        document.getElementById("contenido").value = content;
+        document.getElementById("imagen-avatar").value = avatar;
+      } else {
+        alertMessage("Usuario no existente");
+      }
+    })
+    .catch((err) => {});
+
+}
 
 let btnActualizar = document.getElementById("updatePost");
+
 btnActualizar.addEventListener("click", () => {
  
   let author = document.getElementById("usuario").value
@@ -61,61 +68,98 @@ btnActualizar.addEventListener("click", () => {
       tags: tags,
       urlCoverImage: urlCoverImage,
       author: author,
-      createdDate: "17/06/2022",
+      createdDate: "2022-07-14",
       mintoread: parseInt(Math.random() * 1000),
       reactions: parseInt(Math.random() * 1000),
       comments: parseInt(Math.random() * 1000),
       category: category === "seleccione" ? "latest" : category,
-      avatarAuthor: avatarImage,
+      avatar: avatarImage,
     };
  
-    fetch(urlUpd, {
-      method: "PATCH",
-      body: JSON.stringify(postUpdated),
+    const devtoken = localStorage.getItem("devtoken")
+
+    fetch(`${API_URL}/post/actualizar/${idPost}`, {
+      method: "PATCH",      
       headers: {
         "Content-type": "application/json; charset=UTF-8",
+        "Authorization": `Bearer ${devtoken}`
       },
+      body: JSON.stringify(postUpdated)
     })
       .then((response) => {
-        return response.json();
+        if (!response.ok) {
+          let err = new Error(
+            `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
+          );
+          throw err;
+        } else {
+          
+          return response.json();
+        }
       })
       .then((finalResponse) => {
-
-        alertMessage(`Se actualizo exitosamente el post`, "warning")
+        alertMessage(`Se actualizo exitosamente el post`, "warning");
         setTimeout(() => {
-          window.location.pathname = '/index.html'
-        }, 2000);
+          window.location.pathname = "/index.html";
+        }, 50000);
       })
       .catch((err) => {
-    
+
+        alertMessage(`Debes iniciar sesion para esta acción`, "danger");      
+        console.log( err )
+
       });
   }
 });
+
 /**
  * Eliminar koder
  */
 let btnEliminar = document.getElementById("deletePost");
 btnEliminar.addEventListener("click", () => {
-  fetch(urlUpd,
-    {
-      method: "DELETE",
+
+  const devtoken = localStorage.getItem("devtoken")
+
+  fetch(API_URL_UPD, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${devtoken}`
     }
-  )
+  })
     .then((response) => {
-      if (!response.ok) {    
+      if (!response.ok) {
         let err = new Error(
           `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
         );
         throw err;
-      } else { 
+      } else {
+        
         return response.json();
       }
     })
     .then((response) => {
-
-      window.location.pathname = "/index.html";
+      alertMessage(`Se actualizo exitosamente el post`, "warning");
+      /*
+      setTimeout(() => {
+        window.location.pathname = "/index.html";
+      }, 2000);
+      */
     })
     .catch((err) => {
- 
+      alertMessage(`Debes iniciar sesion para esta acción`, "danger");      
+      console.log( err )
+      /*
+      setTimeout(() => {
+        window.location.pathname = "/index.html";
+      }, 2000);
+      */
     });
 });
+
+
+
+
+
+
+readPostbyId()
