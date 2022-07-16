@@ -76,15 +76,26 @@ btnActualizar.addEventListener("click", () => {
       avatar: avatarImage,
     };
  
+    const devtoken = localStorage.getItem("devtoken")
+
     fetch(`${API_URL}/post/actualizar/${idPost}`, {
       method: "PATCH",      
       headers: {
         "Content-type": "application/json; charset=UTF-8",
+        "Authorization": `Bearer ${devtoken}`
       },
       body: JSON.stringify(postUpdated)
     })
       .then((response) => {
-        return response.json();
+        if (!response.ok) {
+          let err = new Error(
+            `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
+          );
+          throw err;
+        } else {
+          
+          return response.json();
+        }
       })
       .then((finalResponse) => {
         alertMessage(`Se actualizo exitosamente el post`, "warning");
@@ -92,7 +103,12 @@ btnActualizar.addEventListener("click", () => {
           window.location.pathname = "/index.html";
         }, 50000);
       })
-      .catch((err) => {});
+      .catch((err) => {
+
+        alertMessage(`Debes iniciar sesion para esta acción`, "danger");      
+        console.log( err )
+
+      });
   }
 });
 
@@ -124,17 +140,20 @@ btnEliminar.addEventListener("click", () => {
     })
     .then((response) => {
       alertMessage(`Se actualizo exitosamente el post`, "warning");
+      /*
       setTimeout(() => {
         window.location.pathname = "/index.html";
       }, 2000);
-      
+      */
     })
     .catch((err) => {
       alertMessage(`Debes iniciar sesion para esta acción`, "danger");      
       console.log( err )
+      /*
       setTimeout(() => {
         window.location.pathname = "/index.html";
       }, 2000);
+      */
     });
 });
 

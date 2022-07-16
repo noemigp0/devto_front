@@ -44,7 +44,7 @@ btnLogin.addEventListener("click", () => {
 
             localStorage.setItem("devtoken", token)
 
-            alertMessage(`Usuario ${finalResponse.name} logeado con exito`, "success")
+            alertMessage(`Usuario logeado con exito`, "success")
             setTimeout(() => {
                 window.location.pathname = '/index.html'
             }, 2000);
