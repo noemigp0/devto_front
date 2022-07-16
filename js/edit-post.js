@@ -16,10 +16,12 @@ const readPostbyId = () =>{
   })
   .then((response) => {
     let { success, data } = response;
-      console.log( "readPostbyId 1", data.post )
+    let newData = data.post 
+    console.log(newData)
+      //console.log( "readPostbyId 1", data.post )
       if (response) {
         let { title, author, content, tags, urlCoverImage, avatar } =
-        newResponse;
+        newData;
 
         document.getElementById("usuario").value = author;
         document.getElementById("cover-image").value = urlCoverImage;
