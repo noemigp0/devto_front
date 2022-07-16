@@ -10,7 +10,8 @@ const readPostbyId = () =>{
     },
   })
   .then((response) => {
-      
+    let { success, data } = response;
+      console.log( "readPostbyId 1", data.post )
       if (response) {
         let { title, author, content, tags, urlCoverImage, avatar } =
           response;
@@ -93,8 +94,15 @@ btnActualizar.addEventListener("click", () => {
  */
 let btnEliminar = document.getElementById("deletePost");
 btnEliminar.addEventListener("click", () => {
+
+  const devtoken = localStorage.getItem("devtoken")
+
   fetch(API_URL_UPD, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${devtoken}`
+    }
   })
     .then((response) => {
       if (!response.ok) {
@@ -103,13 +111,29 @@ btnEliminar.addEventListener("click", () => {
         );
         throw err;
       } else {
+        
         return response.json();
       }
     })
     .then((response) => {
-      window.location.pathname = "/index.html";
+      alertMessage(`Se actualizo exitosamente el post`, "warning");
+      setTimeout(() => {
+        window.location.pathname = "/index.html";
+      }, 2000);
+      
     })
-    .catch((err) => {});
+    .catch((err) => {
+      alertMessage(`Debes iniciar sesion para esta acción`, "danger");      
+      console.log( err )
+      setTimeout(() => {
+        window.location.pathname = "/index.html";
+      }, 2000);
+    });
 });
+
+
+
+
+
 
 readPostbyId()
