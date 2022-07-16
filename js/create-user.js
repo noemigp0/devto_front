@@ -52,11 +52,13 @@ btnsendUser.addEventListener("click", () => {
       })
       .then((finalResponse) => {
        
-        console.log( finalResponse )
-        alertMessage(`Usuario ${finalResponse.name} creado con exito`, "success")
-        setTimeout(() => {
-          window.location.pathname = '/index.html'
-        }, 2000);
+        console.log( "finalResponse.data", finalResponse.data.user )
+
+        alertMessage(`Usuario ${finalResponse.data.user} creado con exito`, "success")
+         setTimeout(() => {
+           window.location.pathname = '/index.html'
+         }, 2000);
+
       })
       .catch((err) => {
         // console.log(error);
