@@ -3,17 +3,23 @@ const readPostbyId = () =>{
 
   console.log("readPostbyId", API_URL_UPD )
 
-  fetch( API_URL_UPD, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
+  fetch( API_URL_UPD ).then((response) => {
+    console.log(response)
+    if (!response.ok) {
+      throw new Error(
+        `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
+      );
+    }
+    else {
+      return response.json();
+    }
   })
   .then((response) => {
-      
+      let newResponse = response.data.post
+      console.log(newResponse)
       if (response) {
         let { title, author, content, tags, urlCoverImage, avatar } =
-          response;
+        newResponse;
 
         document.getElementById("usuario").value = author;
         document.getElementById("cover-image").value = urlCoverImage;
@@ -60,7 +66,7 @@ btnActualizar.addEventListener("click", () => {
       tags: tags,
       urlCoverImage: urlCoverImage,
       author: author,
-      createdDate: "17/06/2022",
+      createdDate: "2022-07-14",
       mintoread: parseInt(Math.random() * 1000),
       reactions: parseInt(Math.random() * 1000),
       comments: parseInt(Math.random() * 1000),
@@ -68,12 +74,12 @@ btnActualizar.addEventListener("click", () => {
       avatar: avatarImage,
     };
  
-    fetch(API_URL_UPD, {
-      method: "PATCH",
-      body: JSON.stringify(postUpdated),
+    fetch(`${API_URL}/post/actualizar/${idPost}`, {
+      method: "PATCH",      
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
+      body: JSON.stringify(postUpdated)
     })
       .then((response) => {
         return response.json();
@@ -82,7 +88,7 @@ btnActualizar.addEventListener("click", () => {
         alertMessage(`Se actualizo exitosamente el post`, "warning");
         setTimeout(() => {
           window.location.pathname = "/index.html";
-        }, 2000);
+        }, 50000);
       })
       .catch((err) => {});
   }

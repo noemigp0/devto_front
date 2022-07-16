@@ -1,7 +1,7 @@
 let idPost = window.location.search.substring(9);
 
 let API_URL = "http://localhost:8080";
-
+//let API_URL_ID = `${API_URL}/post/${idPost}`
 let API_URL_UPD = `${API_URL}/post/${idPost}`;
 
 //Esta funsion es para los alerts, el cdigo es de bootstrap
