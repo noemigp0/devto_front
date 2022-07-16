@@ -1,5 +1,6 @@
 fetch(API_URL_UPD)
   .then((response) => {
+    console.log(response)
     if (!response.ok) {
       throw new Error(
         `Algo salio mal, status: ${response.status} ${response.statusText} type: ${response.type}`
